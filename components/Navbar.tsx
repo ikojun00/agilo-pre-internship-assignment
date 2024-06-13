@@ -32,9 +32,15 @@ export default function Navbar() {
           <div className="h-full max-w-screen-sm bg-white p-5 flex flex-col gap-8">
             {hamburgerIcon}
             <div className="flex flex-col gap-4 p-1">
-              <h2 className="text-2xl">Clothing</h2>
-              <h2 className="text-2xl">Shoes</h2>
-              <h2 className="text-2xl">Accessories</h2>
+              <Link href="/clothing" onClick={() => toggleHamburgerMenu()}>
+                <h2 className="text-2xl">Clothing</h2>
+              </Link>
+              <Link href="/shoes" onClick={() => toggleHamburgerMenu()}>
+                <h2 className="text-2xl">Shoes</h2>
+              </Link>
+              <Link href="/accessories" onClick={() => toggleHamburgerMenu()}>
+                <h2 className="text-2xl">Accessories</h2>
+              </Link>
             </div>
           </div>
         </div>

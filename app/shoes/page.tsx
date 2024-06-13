@@ -88,7 +88,7 @@ const db = [
   },
 ];
 
-export default function Home() {
+export default function Shoes() {
   return (
     <>
       <ProductList db={db} />
