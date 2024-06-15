@@ -5,55 +5,43 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Previous from "@/components/icons/Previous";
 import Next from "@/components/icons/Next";
-
-type handleItem = {
-  id: number;
-  name: string;
-  price: number;
-  colorVariants: string[];
-  shortDescription: string;
-  image: string[];
-};
+import handleItem from "@/app/types/interfaces/HandleItem";
 
 export default function ProductItem(item: handleItem) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(true);
   const onMouseEnter = () => setIsHovered(true);
   const onMouseLeave = () => setIsHovered(false);
 
   return (
     <>
       <div
-        className="flex py-8 flex-col gap-4 bg-slate-100"
+        className="relative flex flex-col bg-slate-100"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <div
+        <button
+          onClick={() =>
+            setCurrentSlide(
+              (currentSlide + item.image.length - 1) % item.image.length
+            )
+          }
           className={`${
-            isHovered === false ? "px-12" : "flex justify-between w-full"
+            isHovered === true
+              ? "absolute top-1/2 bg-white rounded-r-3xl p-4"
+              : "hidden"
           }`}
         >
-          <div
-            className={`${isHovered === true ? "relative top-1/2" : "hidden"}`}
-          >
-            <button
-              onClick={() =>
-                setCurrentSlide(
-                  (currentSlide + item.image.length - 1) % item.image.length
-                )
-              }
-              className="p-4"
-            >
-              <Previous />
-            </button>
-          </div>
+          <Previous />
+        </button>
+        <Link href={`${item.id}`}>
           {item.image.map((item, index) => (
             <div
               key={index}
               className={`${index === currentSlide ? "flex" : "hidden"}`}
             >
               <Image
-                src={item}
+                src={item.url}
                 alt="bla"
                 width={0}
                 height={0}
@@ -62,37 +50,47 @@ export default function ProductItem(item: handleItem) {
               />
             </div>
           ))}
-          <div
-            className={`${isHovered === true ? "relative top-1/2" : "hidden"}`}
-          >
-            <button
-              onClick={() =>
-                setCurrentSlide((currentSlide + 1) % item.image.length)
-              }
-              className="p-4"
-            >
-              <Next />
-            </button>
-          </div>
-        </div>
-        {/*<div
-          className={`${isHovered === true ? "relative flex gap-4" : "hidden"}`}
+        </Link>
+        <button
+          onClick={() =>
+            setCurrentSlide((currentSlide + 1) % item.image.length)
+          }
+          className={`${
+            isHovered === true
+              ? "absolute right-0 top-1/2 bg-white rounded-l-3xl p-4"
+              : "hidden"
+          }`}
+        >
+          <Next />
+        </button>
+        <div
+          className={`${
+            isHovered === true
+              ? "absolute flex gap-4 bottom-1 left-1/2 bg-slate-400 px-1 rounded-lg"
+              : "hidden"
+          }`}
         >
           {item.image.map((_, index) => (
             <div key={index}>
               <button
                 className={`w-2 h-2 rounded-full ${
-                  index === currentSlide ? "bg-black" : "bg-slate-500"
+                  index === currentSlide ? "bg-black" : "bg-slate-200"
                 }`}
                 onClick={() => setCurrentSlide(index)}
               ></button>
             </div>
           ))}
-        </div>*/}
+        </div>
       </div>
+
       <Link href={`${item.id}`}>
-        <h3>{item.name}</h3>
-        <h2>{item.price}€</h2>
+        <div className="pl-1">
+          <h3 className="text-xl">{item.name}</h3>
+          <div className="flex gap-4 items-center">
+            <h2 className="text-lg">{item.price}€</h2>
+            <h2 className="line-through">{item.oldPrice}€</h2>
+          </div>
+        </div>
       </Link>
     </>
   );

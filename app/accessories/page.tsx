@@ -8,7 +8,12 @@ const db = [
     colorVariants: ["White", "Black", "Gray"],
     shortDescription:
       "A timeless classic, the perfect white t-shirt for any wardrobe.",
-    image: "/classic-white-tee.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 2,
@@ -17,7 +22,12 @@ const db = [
     colorVariants: ["Blue", "Black"],
     shortDescription:
       "A versatile denim jacket that adds a stylish layer to any outfit.",
-    image: "/denim-jacket.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 3,
@@ -26,7 +36,12 @@ const db = [
     colorVariants: ["Red", "Blue", "Yellow"],
     shortDescription:
       "A light and breezy dress with a beautiful floral print, perfect for summer days.",
-    image: "/summer-floral-dress.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 4,
@@ -35,7 +50,12 @@ const db = [
     colorVariants: ["Khaki", "Navy", "Olive"],
     shortDescription:
       "Comfortable and stylish slim fit chinos for a smart-casual look.",
-    image: "/slim-fit-chinos.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 5,
@@ -43,7 +63,12 @@ const db = [
     price: 29.99,
     colorVariants: ["Cream", "Burgundy", "Forest Green"],
     shortDescription: "Stay warm and stylish with this cozy knit sweater.",
-    image: "/cozy-knit-sweater.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 6,
@@ -51,7 +76,12 @@ const db = [
     price: 34.99,
     colorVariants: ["Gray", "Black", "Navy"],
     shortDescription: "Comfortable joggers ideal for workouts or casual wear.",
-    image: "/athletic-joggers.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 7,
@@ -60,7 +90,12 @@ const db = [
     colorVariants: ["White", "Blue", "Pink"],
     shortDescription:
       "A crisp button-up shirt that’s perfect for both office and casual wear.",
-    image: "/button-up-shirt.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 8,
@@ -68,7 +103,12 @@ const db = [
     price: 24.99,
     colorVariants: ["Black", "White", "Red"],
     shortDescription: "A fun and stylish graphic tee for everyday wear.",
-    image: "/graphic-tee.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 9,
@@ -76,7 +116,12 @@ const db = [
     price: 39.99,
     colorVariants: ["Black", "Navy", "Coral"],
     shortDescription: "A flowing maxi skirt that combines comfort with style.",
-    image: "/maxi-skirt.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
   {
     id: 10,
@@ -84,7 +129,12 @@ const db = [
     price: 79.99,
     colorVariants: ["Black", "Navy", "Red"],
     shortDescription: "Stay warm and cozy with this insulated puffer jacket.",
-    image: "/puffer-jacket.jpg",
+    image: [
+      "/shorts.jpg",
+      "/nonfiction.webp",
+      "/romance.webp",
+      "/nonfiction.webp",
+    ],
   },
 ];
 
