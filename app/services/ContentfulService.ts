@@ -1,4 +1,6 @@
+import qGetAllColorVariants from "../types/queries/GetAllColorVariants";
 import qGetAllProducts from "../types/queries/GetAllProducts";
+import qGetProductById from "../types/queries/GetProductById";
 import qGetProductsByCategory from "../types/queries/GetProductsByCategory";
 
 const baseUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`;
@@ -53,9 +55,42 @@ const getProductsByCategory = async (category: string) => {
   }
 };
 
+const getProductById = async (id: number) => {
+  try {
+    const response = await graphqlRequest(qGetProductById(id));
+    const body = (await response.json()) as {
+      data: any;
+    };
+    return productsCollection(body.data)[0];
+  } catch (error) {
+    console.log(error);
+
+    return [];
+  }
+};
+
+const getAllColorVariants = async (name: string) => {
+  try {
+    const response = await graphqlRequest(qGetAllColorVariants(name));
+    const body = (await response.json()) as {
+      data: any;
+    };
+    return body.data.agiloCollection.items.map((item: any) => ({
+      id: item.id,
+      color: item.color,
+    }));
+  } catch (error) {
+    console.log(error);
+
+    return [];
+  }
+};
+
 const ContentfulService = {
   getAllProducts,
   getProductsByCategory,
+  getProductById,
+  getAllColorVariants,
 };
 
 export default ContentfulService;

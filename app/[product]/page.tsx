@@ -1,29 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Plus from "@/components/icons/Plus";
 import Minus from "@/components/icons/Minus";
 import Previous from "@/components/icons/Previous";
 import Next from "@/components/icons/Next";
+import ContentfulService from "../services/ContentfulService";
+import { usePathname } from "next/navigation";
+import NotFound from "../not-found";
+import Link from "next/link";
 
-const object = {
-  id: 8,
-  name: "Graphic Tee",
-  price: 24.99,
-  colorVariants: ["Black", "White", "Red"],
-  shortDescription: "A fun and stylish graphic tee for everyday wear.",
-  image: [
-    "/shorts.jpg",
-    "/nonfiction.webp",
-    "/romance.webp",
-    "/nonfiction.webp",
-  ],
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  oldPrice: number;
+  desc: string;
+  image: { url: string }[];
 };
 
 export default function Product() {
   const [data, setData] = useState(1);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [product, setProduct] = useState<Product | null>();
+  const [colors, setColors] = useState([]);
+  const pathname = usePathname().replace("/", "");
+
+  useEffect(() => {
+    (async () => {
+      const newProduct = await ContentfulService.getProductById(
+        parseInt(pathname)
+      );
+      if (!newProduct) {
+        setProduct(null);
+      } else {
+        const newColors = await ContentfulService.getAllColorVariants(
+          newProduct.name
+        );
+        console.log(newColors);
+        setProduct(newProduct);
+        setColors(newColors);
+      }
+    })();
+  }, [pathname]);
+
+  if (product === null) {
+    return <NotFound />;
+  }
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex w-full">
@@ -33,7 +61,8 @@ export default function Product() {
             <button
               onClick={() =>
                 setCurrentSlide(
-                  (currentSlide + object.image.length - 1) % object.image.length
+                  (currentSlide + product.image.length - 1) %
+                    product.image.length
                 )
               }
               className="p-4"
@@ -41,14 +70,14 @@ export default function Product() {
               <Previous />
             </button>
           </div>
-          {object.image.map((item, index) => (
+          {product.image.map((item, index) => (
             <div
               key={index}
               className={`${index === currentSlide ? "flex w-80" : "hidden"}`}
             >
               <Image
-                src={item}
-                alt="bla"
+                src={item.url}
+                alt="Product Image"
                 width={0}
                 height={0}
                 sizes="100vw"
@@ -59,7 +88,7 @@ export default function Product() {
           <div className="flex items-center">
             <button
               onClick={() =>
-                setCurrentSlide((currentSlide + 1) % object.image.length)
+                setCurrentSlide((currentSlide + 1) % product.image.length)
               }
               className="p-4"
             >
@@ -68,7 +97,7 @@ export default function Product() {
           </div>
         </div>
         <div className="flex gap-4">
-          {object.image.map((_, index) => (
+          {product.image.map((_, index) => (
             <div key={index}>
               <button
                 className={`w-3 h-3 rounded-full ${
@@ -84,10 +113,21 @@ export default function Product() {
         <div className="flex flex-col gap-20">
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4">
-              <h1 className="text-4xl">{object.name}</h1>
-              <h3 className="text-xl">{object.price}€</h3>
+              <h1 className="text-4xl">{product.name}</h1>
+              <h3 className="text-xl">{product.price}€</h3>
             </div>
-            <p>{object.shortDescription}</p>
+            <p>{product.desc}</p>
+          </div>
+          <div className="flex gap-4">
+            {colors.map((item, index) => (
+              <div key={index}>
+                <Link href={`${item.id}`}>
+                  <button
+                    className={`w-8 h-8 rounded-full border-solid border-2 bg-${item.color}-500`}
+                  ></button>
+                </Link>
+              </div>
+            ))}
           </div>
           <div className="flex gap-4 justify-between">
             <div className="flex gap-2 items-center">
@@ -101,6 +141,7 @@ export default function Product() {
                 <Plus />
               </button>
             </div>
+
             <button className="p-4 bg-black text-white">Add to Cart</button>
           </div>
         </div>
