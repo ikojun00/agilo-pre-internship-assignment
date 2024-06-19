@@ -27,8 +27,8 @@ export default function ProductItem(item: handleItem) {
             )
           }
           className={`${
-            isHovered === true
-              ? "absolute top-1/2 bg-white rounded-r-3xl p-4"
+            isHovered === true && currentSlide !== 0
+              ? "absolute top-1/2 transform -translate-y-1/2 left-0 bg-white rounded-r-3xl p-4"
               : "hidden"
           }`}
         >
@@ -56,8 +56,8 @@ export default function ProductItem(item: handleItem) {
             setCurrentSlide((currentSlide + 1) % item.image.length)
           }
           className={`${
-            isHovered === true
-              ? "absolute right-0 top-1/2 bg-white rounded-l-3xl p-4"
+            isHovered === true && currentSlide !== item.image.length - 1
+              ? "absolute top-1/2 transform -translate-y-1/2 right-0 bg-white rounded-l-3xl p-4"
               : "hidden"
           }`}
         >
@@ -66,7 +66,7 @@ export default function ProductItem(item: handleItem) {
         <div
           className={`${
             isHovered === true
-              ? "absolute flex gap-4 bottom-1 left-1/2 bg-slate-400 px-1 rounded-lg"
+              ? "absolute flex gap-4 bottom-1 left-1/2 transform -translate-x-1/2 bg-white px-1 rounded-lg"
               : "hidden"
           }`}
         >
@@ -74,7 +74,7 @@ export default function ProductItem(item: handleItem) {
             <div key={index}>
               <button
                 className={`w-2 h-2 rounded-full ${
-                  index === currentSlide ? "bg-black" : "bg-slate-200"
+                  index === currentSlide ? "bg-black" : "bg-slate-400"
                 }`}
                 onClick={() => setCurrentSlide(index)}
               ></button>
