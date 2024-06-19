@@ -70,16 +70,17 @@ export default function ProductItem(item: handleItem) {
               : "hidden"
           }`}
         >
-          {item.image.map((_, index) => (
-            <div key={index}>
-              <button
-                className={`w-2 h-2 rounded-full ${
-                  index === currentSlide ? "bg-black" : "bg-slate-400"
-                }`}
-                onClick={() => setCurrentSlide(index)}
-              ></button>
-            </div>
-          ))}
+          {item.image.length > 1 &&
+            item.image.map((_, index) => (
+              <div key={index}>
+                <button
+                  className={`w-2 h-2 rounded-full ${
+                    index === currentSlide ? "bg-black" : "bg-slate-400"
+                  }`}
+                  onClick={() => setCurrentSlide(index)}
+                ></button>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -87,8 +88,16 @@ export default function ProductItem(item: handleItem) {
         <div className="pl-1">
           <h3 className="text-xl">{item.name}</h3>
           <div className="flex gap-4 items-center">
-            <h2 className="text-lg">{item.price}€</h2>
-            <h2 className="line-through">{item.oldPrice}€</h2>
+            <h2
+              className={`text-lg ${
+                item.oldPrice ? "text-red-500" : "text-black"
+              }`}
+            >
+              {item.price}€
+            </h2>
+            {item.oldPrice !== null && (
+              <h2 className="line-through">{item.oldPrice}€</h2>
+            )}
           </div>
         </div>
       </Link>

@@ -26,6 +26,7 @@ type Color = {
 };
 
 const colorMap: { [key: string]: string } = {
+  black: "bg-black",
   white: "bg-white",
   red: "bg-red-500",
   blue: "bg-blue-500",
