@@ -15,14 +15,14 @@ export default function Navbar() {
   };
 
   const hamburgerIcon = (
-    <button className="p-1" onClick={toggleHamburgerMenu}>
+    <button onClick={toggleHamburgerMenu}>
       <HamburgerIcon isOpen={isOpen} />
     </button>
   );
 
   return (
     <div className="sticky z-10 bg-white top-0 left-0 border-b-2">
-      <div className="flex justify-between p-5 border-b-2">
+      <div className="flex justify-between p-5 px-10 border-b-2">
         {hamburgerIcon}
         <div
           className={`${

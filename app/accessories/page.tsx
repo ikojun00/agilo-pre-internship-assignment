@@ -3,6 +3,7 @@
 import ProductList from "@/components/ProductList";
 import { useEffect, useState } from "react";
 import ContentfulService from "../services/ContentfulService";
+import PathnameBar from "@/components/PathnameBar";
 
 export default function Accessories() {
   const [db, setDb] = useState([]);
@@ -17,8 +18,9 @@ export default function Accessories() {
   }, []);
 
   return (
-    <>
+    <div className="px-10 mt-10">
+      <PathnameBar />
       <ProductList db={db} />
-    </>
+    </div>
   );
 }

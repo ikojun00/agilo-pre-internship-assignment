@@ -8,7 +8,7 @@ type handleDB = {
 
 export default function ProductList({ db }: handleDB) {
   return (
-    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-20 px-10 mt-10">
+    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-20 mt-10">
       {db.map((item) => (
         <div className="flex gap-4 md:flex-col" key={item.id}>
           <ProductItem {...item} />

@@ -3,6 +3,7 @@
 import ProductList from "@/components/ProductList";
 import ContentfulService from "../services/ContentfulService";
 import { useEffect, useState } from "react";
+import PathnameBar from "@/components/PathnameBar";
 
 export default function Clothing() {
   const [db, setDb] = useState([]);
@@ -17,8 +18,9 @@ export default function Clothing() {
   }, []);
 
   return (
-    <>
+    <div className="px-10 mt-10">
+      <PathnameBar />
       <ProductList db={db} />
-    </>
+    </div>
   );
 }
