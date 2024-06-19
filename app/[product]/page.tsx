@@ -20,11 +20,24 @@ type Product = {
   image: { url: string }[];
 };
 
+type Color = {
+  id: number;
+  color: string;
+};
+
+const colorMap: { [key: string]: string } = {
+  white: "bg-white",
+  red: "bg-red-500",
+  blue: "bg-blue-500",
+  green: "bg-green-500",
+  yellow: "bg-yellow-500",
+};
+
 export default function Product() {
   const [data, setData] = useState(1);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [product, setProduct] = useState<Product | null>();
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState<Color[]>([]);
   const pathname = usePathname().replace("/", "");
 
   useEffect(() => {
@@ -38,7 +51,6 @@ export default function Product() {
         const newColors = await ContentfulService.getAllColorVariants(
           newProduct.name
         );
-        console.log(newColors);
         setProduct(newProduct);
         setColors(newColors);
       }
@@ -123,7 +135,9 @@ export default function Product() {
               <div key={index}>
                 <Link href={`${item.id}`}>
                   <button
-                    className={`w-8 h-8 rounded-full border-solid border-2 bg-${item.color}-500`}
+                    className={`w-8 h-8 rounded-full border-solid border-2 ${
+                      colorMap[item.color]
+                    }`}
                   ></button>
                 </Link>
               </div>
