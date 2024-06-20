@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <div className="sticky z-10 bg-white top-0 left-0 border-b-2">
-      <div className="flex justify-between p-5 px-10 border-b-2">
+      <div className="flex justify-between p-5 px-10">
         {hamburgerIcon}
         <div
           className={`${

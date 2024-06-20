@@ -22,6 +22,7 @@ const productsCollection = (data: any) => {
     name: item.name,
     price: item.price,
     oldPrice: item.oldPrice,
+    desc: item.desc,
     image: item.imagesCollection.items,
   }));
 };

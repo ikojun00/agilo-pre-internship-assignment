@@ -1,15 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Plus from "@/components/icons/Plus";
 import Minus from "@/components/icons/Minus";
-import Previous from "@/components/icons/Previous";
-import Next from "@/components/icons/Next";
 import ContentfulService from "../services/ContentfulService";
 import { usePathname } from "next/navigation";
 import NotFound from "../not-found";
 import Link from "next/link";
+import Carousel from "@/components/Carousel";
 
 type Product = {
   id: number;
@@ -36,7 +34,6 @@ const colorMap: { [key: string]: string } = {
 
 export default function Product() {
   const [data, setData] = useState(1);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [product, setProduct] = useState<Product | null>();
   const [colors, setColors] = useState<Color[]>([]);
   const pathname = usePathname().replace("/", "");
@@ -46,6 +43,7 @@ export default function Product() {
       const newProduct = await ContentfulService.getProductById(
         parseInt(pathname)
       );
+      console.log(newProduct);
       if (!newProduct) {
         setProduct(null);
       } else {
@@ -67,69 +65,29 @@ export default function Product() {
   }
 
   return (
-    <div className="flex w-full">
-      <div className="flex flex-col gap-8 w-1/2 h-[calc(100vh-5rem)] justify-center items-center bg-slate-100">
-        <div className="flex justify-between w-full">
-          <div className="flex items-center">
-            <button
-              onClick={() =>
-                setCurrentSlide(
-                  (currentSlide + product.image.length - 1) %
-                    product.image.length
-                )
-              }
-              className="p-4"
-            >
-              <Previous />
-            </button>
-          </div>
-          {product.image.map((item, index) => (
-            <div
-              key={index}
-              className={`${index === currentSlide ? "flex w-80" : "hidden"}`}
-            >
-              <Image
-                src={item.url}
-                alt="Product Image"
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-          ))}
-          <div className="flex items-center">
-            <button
-              onClick={() =>
-                setCurrentSlide((currentSlide + 1) % product.image.length)
-              }
-              className="p-4"
-            >
-              <Next />
-            </button>
-          </div>
-        </div>
-        <div className="flex gap-4">
-          {product.image.map((_, index) => (
-            <div key={index}>
-              <button
-                className={`w-3 h-3 rounded-full ${
-                  index === currentSlide ? "bg-black" : "bg-slate-500"
-                }`}
-                onClick={() => setCurrentSlide(index)}
-              ></button>
-            </div>
-          ))}
-        </div>
+    <div className="px-10 flex flex-col gap-20 lg:justify-between py-10 lg:items-center lg:flex-row lg:h-[calc(100vh-5rem)]">
+      <div className="lg:w-1/2 xl:w-1/3">
+        <Carousel {...product} />
       </div>
-      <div className="flex w-1/2 justify-center items-center">
+      <div className="lg:w-1/2 xl:w-2/3">
         <div className="flex flex-col gap-20">
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4">
               <h1 className="text-4xl">{product.name}</h1>
-              <h3 className="text-xl">{product.price}€</h3>
+              <div className="flex gap-4 items-end">
+                <h2
+                  className={`text-xl ${
+                    product.oldPrice ? "text-red-500" : "text-black"
+                  }`}
+                >
+                  {product.price}€
+                </h2>
+                {product.oldPrice !== null && (
+                  <h2 className="line-through">{product.oldPrice}€</h2>
+                )}
+              </div>
             </div>
-            <p>{product.desc}</p>
+            <h3 className="text-xl">{product.desc}</h3>
           </div>
           <div className="flex gap-4">
             {colors.map((item, index) => (
@@ -144,6 +102,23 @@ export default function Product() {
               </div>
             ))}
           </div>
+          <select className="mt-4 p-2 border border-slate-400 rounded-md">
+            <option className="p-2" value="xs">
+              XS
+            </option>
+            <option className="p-2" value="s">
+              S
+            </option>
+            <option className="p-2" value="m">
+              M
+            </option>
+            <option className="p-2" value="l">
+              L
+            </option>
+            <option className="p-2" value="xl">
+              XL
+            </option>
+          </select>
           <div className="flex gap-4 justify-between">
             <div className="flex gap-2 items-center">
               <button onClick={() => data - 1 > 0 && setData(data - 1)}>
