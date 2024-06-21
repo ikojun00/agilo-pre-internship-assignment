@@ -1,11 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HamburgerIcon from "./icons/HamburgerIcon";
 import Link from "next/link";
+import Cart from "./icons/Cart";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [cartLength, setCartLength] = useState<number>();
+
+  useEffect(() => {
+    const handleStorage = () => {
+      const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCartLength(existingCart.length);
+    };
+
+    handleStorage();
+
+    window.addEventListener("cart", handleStorage);
+    return () => window.removeEventListener("cart", handleStorage);
+  }, []);
 
   const toggleHamburgerMenu = () => {
     setIsOpen(!isOpen);
@@ -22,7 +36,7 @@ export default function Navbar() {
 
   return (
     <div className="sticky z-10 bg-white top-0 left-0 border-b-2">
-      <div className="flex justify-between p-5 px-10">
+      <div className="flex justify-between items-center p-5 px-10">
         {hamburgerIcon}
         <div
           className={`${
@@ -47,7 +61,11 @@ export default function Navbar() {
         <Link href="/">
           <h1 className="text-3xl">Style Haven</h1>
         </Link>
-        <div></div>
+        <Link href="/cart">
+          <div className="flex">
+            <Cart /> ({cartLength})
+          </div>
+        </Link>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import NotFound from "../not-found";
 import Link from "next/link";
 import Carousel from "@/components/Carousel";
+import CartItem from "../types/interfaces/CartItem";
 
 type Product = {
   id: number;
@@ -37,13 +38,13 @@ export default function Product() {
   const [product, setProduct] = useState<Product | null>();
   const [colors, setColors] = useState<Color[]>([]);
   const pathname = usePathname().replace("/", "");
+  const [selectedSize, setSelectedSize] = useState<string>("m");
 
   useEffect(() => {
     (async () => {
       const newProduct = await ContentfulService.getProductById(
         parseInt(pathname)
       );
-      console.log(newProduct);
       if (!newProduct) {
         setProduct(null);
       } else {
@@ -55,6 +56,31 @@ export default function Product() {
       }
     })();
   }, [pathname]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: data,
+        size: selectedSize,
+        image: product.image[0]?.url || "",
+      };
+
+      const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const index = existingCart.findIndex(
+        (item: CartItem) => item.id === cartItem.id
+      );
+
+      if (index !== -1) {
+        existingCart[index].quantity += cartItem.quantity;
+      } else existingCart.push(cartItem);
+
+      localStorage.setItem("cart", JSON.stringify(existingCart));
+      window.dispatchEvent(new Event("cart"));
+    }
+  };
 
   if (product === null) {
     return <NotFound />;
@@ -102,7 +128,11 @@ export default function Product() {
               </div>
             ))}
           </div>
-          <select className="mt-4 p-2 border border-slate-400 rounded-md">
+          <select
+            className="mt-4 p-2 border border-slate-400 rounded-md"
+            value={selectedSize}
+            onChange={(e) => setSelectedSize(e.target.value)}
+          >
             <option className="p-2" value="xs">
               XS
             </option>
@@ -132,7 +162,12 @@ export default function Product() {
               </button>
             </div>
 
-            <button className="p-4 bg-black text-white">Add to Cart</button>
+            <button
+              className="p-4 bg-black text-white"
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
