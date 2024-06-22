@@ -7,7 +7,7 @@ import Cart from "./icons/Cart";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [cartLength, setCartLength] = useState<number>();
+  const [cartLength, setCartLength] = useState<number>(0);
 
   useEffect(() => {
     const handleStorage = () => {
@@ -62,8 +62,11 @@ export default function Navbar() {
           <h1 className="text-3xl">Style Haven</h1>
         </Link>
         <Link href="/cart">
-          <div className="flex">
-            <Cart /> ({cartLength})
+          <div className="p-4 relative">
+            <Cart />
+            <div className="absolute top-0 left-0 rounded-2xl text-sm px-1 bg-slate-200">
+              {cartLength}
+            </div>
           </div>
         </Link>
       </div>
