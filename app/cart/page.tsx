@@ -9,7 +9,7 @@ export default function Cart() {
   const [data, setData] = useState<CartItem[]>([]);
   const [total, setTotal] = useState<number>(0);
 
-  const changeQuantity = (id: number, num: number) => {
+  const changeQuantity = (id: number, num: number, size: string) => {
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
     let index = existingCart.findIndex((item: CartItem) => item.id === id);
 
@@ -23,7 +23,9 @@ export default function Cart() {
     }
 
     const newData = [...data];
-    index = newData.findIndex((item: CartItem) => item.id === id);
+    index = newData.findIndex(
+      (item: CartItem) => item.id === id && item.size === size
+    );
 
     if (index !== -1 && newData[index].quantity > 0) {
       newData[index].quantity += num;
@@ -56,35 +58,39 @@ export default function Cart() {
       <h1 className="text-3xl font-bold">Your Cart</h1>
       <div className="flex flex-col gap-4">
         <div className="flex w-full font-semibold border-b-2 pb-2">
-          <div className="w-1/5">Image</div>
-          <div className="w-1/5">Item</div>
-          <div className="w-1/5">Price</div>
-          <div className="w-1/5">Quantity</div>
-          <div className="w-1/5">Total</div>
+          <div className="w-1/6">Image</div>
+          <div className="w-1/6">Item</div>
+          <div className="w-1/6">Price</div>
+          <div className="w-1/6">Size</div>
+          <div className="w-1/6">Quantity</div>
+          <div className="w-1/6">Total</div>
         </div>
 
-        {data.map((item) => (
-          <div key={item.id} className="flex w-full py-2 border-b items-center">
-            <div className="w-1/5">
+        {data.map((item, index) => (
+          <div key={index} className="flex w-full py-2 border-b items-center">
+            <div className="w-1/6">
               <Image
                 src={item.image}
                 alt="Product Image"
-                width={100}
-                height={100}
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: "40%", height: "auto" }}
               />
             </div>
-            <div className="w-1/5">{item.name}</div>
-            <div className="w-1/5">{item.price.toFixed(2)}€</div>
-            <div className="w-1/5 flex gap-6">
-              <button onClick={() => changeQuantity(item.id, -1)}>
+            <div className="w-1/6">{item.name}</div>
+            <div className="w-1/6">{item.price.toFixed(2)}€</div>
+            <div className="w-1/6 capitalize">{item.size}</div>
+            <div className="w-1/6 flex gap-6">
+              <button onClick={() => changeQuantity(item.id, -1, item.size)}>
                 <Minus />
               </button>
               {item.quantity}
-              <button onClick={() => changeQuantity(item.id, +1)}>
+              <button onClick={() => changeQuantity(item.id, +1, item.size)}>
                 <Plus />
               </button>
             </div>
-            <div className="w-1/5">
+            <div className="w-1/6">
               {(Math.round(item.quantity * item.price * 100) / 100).toFixed(2)}€
             </div>
           </div>

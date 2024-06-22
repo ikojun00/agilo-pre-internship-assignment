@@ -6,6 +6,7 @@ const qGetProductById = (id: number) => `query {
         price
         oldPrice
         desc
+        category
         imagesCollection {
           items {
             url
