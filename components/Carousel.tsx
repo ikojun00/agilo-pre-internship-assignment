@@ -8,7 +8,7 @@ import Next from "@/components/icons/Next";
 
 export default function Carousel(item: handleItem) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isHovered, setIsHovered] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
   const onMouseEnter = () => setIsHovered(true);
   const onMouseLeave = () => setIsHovered(false);
 
@@ -26,7 +26,7 @@ export default function Carousel(item: handleItem) {
         }
         className={`${
           isHovered === true && currentSlide !== 0
-            ? "absolute top-1/2 transform -translate-y-1/2 left-0 bg-white rounded-r-3xl p-4"
+            ? "absolute top-1/2 transform -translate-y-1/2 left-0 bg-white rounded-r-3xl p-3 md:p-4"
             : "hidden"
         }`}
       >
@@ -53,7 +53,7 @@ export default function Carousel(item: handleItem) {
         onClick={() => setCurrentSlide((currentSlide + 1) % item.image.length)}
         className={`${
           isHovered === true && currentSlide !== item.image.length - 1
-            ? "absolute top-1/2 transform -translate-y-1/2 right-0 bg-white rounded-l-3xl p-4"
+            ? "absolute top-1/2 transform -translate-y-1/2 right-0 bg-white rounded-l-3xl p-3 md:p-4"
             : "hidden"
         }`}
       >
@@ -70,7 +70,7 @@ export default function Carousel(item: handleItem) {
           item.image.map((_, index) => (
             <div key={index}>
               <button
-                className={`w-2 h-2 rounded-full ${
+                className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${
                   index === currentSlide ? "bg-black" : "bg-slate-400"
                 }`}
                 onClick={() => setCurrentSlide(index)}

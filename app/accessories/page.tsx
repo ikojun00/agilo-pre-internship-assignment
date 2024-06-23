@@ -18,7 +18,7 @@ export default function Accessories() {
   }, []);
 
   return (
-    <div className="px-10 mt-10">
+    <div className="px-10 my-20">
       <PathnameBar />
       <ProductList db={db} />
     </div>

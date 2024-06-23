@@ -9,17 +9,19 @@ export default function ProductItem(item: handleItem) {
       <Carousel {...item} />
       <Link href={`${item.id}`}>
         <div className="pl-1">
-          <h3 className="text-xl">{item.name}</h3>
+          <h3 className="text-sm md:text-base">{item.name}</h3>
           <div className="flex gap-4 items-center">
             <h2
-              className={`text-lg ${
+              className={`text-sm md:text-base ${
                 item.oldPrice ? "text-red-500" : "text-black"
               }`}
             >
               {item.price}€
             </h2>
             {item.oldPrice !== null && (
-              <h2 className="line-through">{item.oldPrice}€</h2>
+              <h2 className="text-xs md:text-sm line-through text-slate-600">
+                {item.oldPrice}€
+              </h2>
             )}
           </div>
         </div>

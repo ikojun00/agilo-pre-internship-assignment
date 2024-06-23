@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import HamburgerIcon from "./icons/HamburgerIcon";
 import Link from "next/link";
 import Cart from "./icons/Cart";
+import Logo from "./icons/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -36,7 +37,7 @@ export default function Navbar() {
 
   return (
     <div className="sticky z-10 bg-white top-0 left-0 border-b-2">
-      <div className="flex justify-between items-center p-5 px-10">
+      <div className="flex justify-between items-center p-2 px-10">
         {hamburgerIcon}
         <div
           className={`${
@@ -59,10 +60,18 @@ export default function Navbar() {
           </div>
         </div>
         <Link href="/">
-          <h1 className="text-3xl">Style Haven</h1>
+          <div className="flex justify-center gap-4">
+            <div>
+              <Logo />
+            </div>
+            <div className="hidden md:flex">
+              <h1 className="text-2xl">Style Utopia</h1>
+            </div>
+          </div>
         </Link>
+
         <Link href="/cart">
-          <div className="p-4 relative">
+          <div className="p-3.5 relative">
             <Cart />
             <div className="absolute top-0 left-0 rounded-2xl text-sm px-1 bg-slate-200">
               {cartLength}

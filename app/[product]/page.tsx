@@ -99,38 +99,40 @@ export default function Product() {
 
   return (
     <div className="px-10 flex flex-col gap-20 lg:justify-between py-10 lg:items-center lg:flex-row lg:h-[calc(100vh-7rem)]">
-      <div className="lg:w-1/2 xl:w-1/3 rounded-lg">
+      <div className="lg:w-1/2 xl:w-1/3">
         <Carousel {...product} />
       </div>
       <div className="lg:w-1/2 xl:w-2/3">
         <div className="flex flex-col gap-20">
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4">
-              <h1 className="text-4xl">{product.name}</h1>
+              <h1 className="text-xl md:text-2xl">{product.name}</h1>
               <div className="flex gap-4 items-end">
                 <h2
-                  className={`text-xl ${
+                  className={`text-base md:text-lg ${
                     product.oldPrice ? "text-red-500" : "text-black"
                   }`}
                 >
                   {product.price}€
                 </h2>
                 {product.oldPrice !== null && (
-                  <h2 className="line-through">{product.oldPrice}€</h2>
+                  <h2 className="text-sm md:text-base line-through text-slate-600">
+                    {product.oldPrice}€
+                  </h2>
                 )}
               </div>
             </div>
-            <h3 className="text-xl">{product.desc}</h3>
+            <h3 className="text-sm md:text-base">{product.desc}</h3>
           </div>
-          <div className="flex gap-28">
+          <div className="flex flex-col md:flex-row gap-14 md:gap-28">
             <div className="flex flex-col gap-4">
-              <h2>Color variants</h2>
+              <h2 className="text-xs md:text-sm">Color variants</h2>
               <div className="flex gap-4">
                 {colors.map((item, index) => (
                   <div key={index}>
                     <Link href={`${item.id}`}>
                       <button
-                        className={`w-8 h-8 rounded-full border-solid border-2 ${
+                        className={`w-6 h-6 md:w-8 md:h-8 rounded-full border-solid border-2 ${
                           colorMap[item.color]
                         }`}
                       ></button>
@@ -141,7 +143,7 @@ export default function Product() {
             </div>
             {product.category !== "accessories" && (
               <div className="flex flex-col gap-4">
-                <h2>Size</h2>
+                <h2 className="text-xs md:text-sm">Size</h2>
                 {product.category === "shoes" ? (
                   <select
                     className="p-2 border border-slate-400 rounded-md"
@@ -159,7 +161,7 @@ export default function Product() {
                   </select>
                 ) : (
                   <select
-                    className="p-2 border border-slate-400 rounded-md"
+                    className="text-xs md:text-sm p-2 border border-slate-400 rounded-md"
                     value={selectedSize}
                     onChange={(e) => setSelectedSize(e.target.value)}
                   >
@@ -177,12 +179,12 @@ export default function Product() {
             )}
 
             <div className="flex flex-col gap-4">
-              <h2>Quantity</h2>
+              <h2 className="text-xs md:text-sm">Quantity</h2>
               <div className="flex gap-2 items-center">
                 <button onClick={() => data - 1 > 0 && setData(data - 1)}>
                   <Minus />
                 </button>
-                <div className="flex justify-center w-10 h-10 items-center">
+                <div className="text-xs md:text-sm flex justify-center w-10 h-10 items-center">
                   {data}
                 </div>
                 <button onClick={() => setData(data + 1)}>
@@ -193,7 +195,7 @@ export default function Product() {
           </div>
           <div className="flex gap-4">
             <button
-              className="p-4 bg-black text-white"
+              className="text-xs md:text-sm p-4 bg-black text-white"
               onClick={handleAddToCart}
             >
               Add to Cart

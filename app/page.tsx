@@ -16,7 +16,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="px-10 my-10">
+    <div className="px-10 my-20">
       <PathnameBar />
       <ProductList db={db} />
     </div>
