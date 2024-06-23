@@ -6,7 +6,7 @@ import ContentfulService from "../services/ContentfulService";
 import { usePathname } from "next/navigation";
 import NotFound from "../not-found";
 import Link from "next/link";
-import Carousel from "@/components/Carousel";
+import Image from "next/image";
 import CartItem from "../types/interfaces/CartItem";
 
 type Product = {
@@ -37,6 +37,7 @@ export default function Product() {
   const [data, setData] = useState(1);
   const [product, setProduct] = useState<Product | null>();
   const [colors, setColors] = useState<Color[]>([]);
+  const [selectedImage, setSelectedImage] = useState<number>(0);
   const pathname = usePathname().replace("/", "");
   const [selectedSize, setSelectedSize] = useState<string>("");
 
@@ -98,11 +99,34 @@ export default function Product() {
   }
 
   return (
-    <div className="px-10 flex flex-col gap-20 lg:justify-between py-10 lg:items-center lg:flex-row lg:h-[calc(100vh-7rem)]">
-      <div className="lg:w-1/2 xl:w-1/3">
-        <Carousel {...product} />
+    <div className="px-10 flex flex-col gap-28 py-20 lg:flex-row lg:h-[calc(100vh-5rem)]">
+      <div className="flex max-w-fit">
+        <div className="flex flex-col items-start">
+          {product.image.length > 1 &&
+            product.image.map((item, index) => (
+              <Image
+                src={item.url}
+                key={index}
+                alt={`Product Image ${index + 1}`}
+                width={60}
+                height={80}
+                className="cursor-pointer"
+                onClick={() => setSelectedImage(index)}
+              />
+            ))}
+        </div>
+        <div>
+          <Image
+            src={product.image[selectedImage].url}
+            alt="Selected Product Image"
+            width={387}
+            height={516}
+            className="max-w-full h-auto"
+          />
+        </div>
       </div>
-      <div className="lg:w-1/2 xl:w-2/3">
+
+      <div>
         <div className="flex flex-col gap-20">
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4">
