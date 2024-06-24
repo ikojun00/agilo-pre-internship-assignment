@@ -8,6 +8,7 @@ import NotFound from "../not-found";
 import Link from "next/link";
 import Image from "next/image";
 import CartItem from "../types/interfaces/CartItem";
+import Spinner from "@/components/icons/Spinner";
 
 type Product = {
   id: number;
@@ -46,7 +47,7 @@ export default function Product() {
       const newProduct = await ContentfulService.getProductById(
         parseInt(pathname)
       );
-      if (!newProduct) {
+      if (newProduct === null) {
         setProduct(null);
       } else {
         const newColors = await ContentfulService.getAllColorVariants(
@@ -90,16 +91,20 @@ export default function Product() {
     }
   };
 
+  if (!product && product !== null) {
+    return (
+      <div className="h-[calc(100vh-7rem)] flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
+
   if (product === null) {
     return <NotFound />;
   }
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="px-10 flex flex-col gap-28 py-20 lg:flex-row lg:h-[calc(100vh-5rem)]">
+    <div className="px-10 flex flex-col gap-28 py-20 lg:flex-row lg:h-[calc(100vh-7rem)]">
       <div className="flex max-w-fit">
         <div className="flex flex-col items-start">
           {product.image.length > 1 &&

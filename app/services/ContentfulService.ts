@@ -67,7 +67,7 @@ const getProductById = async (id: number) => {
   } catch (error) {
     console.log(error);
 
-    return [];
+    return null;
   }
 };
 
