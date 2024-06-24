@@ -123,7 +123,7 @@ export default function Product() {
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-4">
               <h1 className="text-xl md:text-2xl">{product.name}</h1>
-              <div className="flex gap-4 items-end">
+              <div className="flex gap-4 items-center">
                 <h2
                   className={`text-base md:text-lg ${
                     product.oldPrice ? "text-red-500" : "text-black"
