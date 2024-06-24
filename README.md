@@ -17,7 +17,7 @@ The most challenging aspect of this project was dealing with images. Ensuring im
 I am most proud of implementing the product carousel. This feature allows users to scroll through product images, enhancing the visual appeal and user experience of the webstore.
 
 ## Project Structure
-
+```bash
 /app
 │
 ├── /[product]                  # Product page
@@ -37,4 +37,4 @@ I am most proud of implementing the product carousel. This feature allows users 
 │
 /components                     # Components implemeted in app pages
 ├── icons                       # SVG code for icons
-
+```
