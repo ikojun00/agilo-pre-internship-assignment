@@ -7,23 +7,10 @@ import { usePathname } from "next/navigation";
 import NotFound from "../not-found";
 import Link from "next/link";
 import Image from "next/image";
-import CartItem from "../types/interfaces/CartItem";
 import Spinner from "@/components/icons/Spinner";
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  oldPrice: number;
-  desc: string;
-  category: string;
-  image: { url: string }[];
-};
-
-type Color = {
-  id: number;
-  color: string;
-};
+import ColorInterface from "../types/interfaces/ColorInterface";
+import ProductItem from "../types/interfaces/ProductInterface";
+import CartInterface from "../types/interfaces/CartInterface";
 
 const colorMap: { [key: string]: string } = {
   black: "bg-black",
@@ -35,9 +22,9 @@ const colorMap: { [key: string]: string } = {
 };
 
 export default function Product() {
-  const [data, setData] = useState(1);
-  const [product, setProduct] = useState<Product | null>();
-  const [colors, setColors] = useState<Color[]>([]);
+  const [data, setData] = useState<number>(1);
+  const [product, setProduct] = useState<ProductItem | null>();
+  const [colors, setColors] = useState<ColorInterface[]>([]);
   const [selectedImage, setSelectedImage] = useState<number>(0);
   const pathname = usePathname().replace("/", "");
   const [selectedSize, setSelectedSize] = useState<string>("");
@@ -76,7 +63,7 @@ export default function Product() {
 
       const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
       const index = existingCart.findIndex(
-        (item: CartItem) =>
+        (item: CartInterface) =>
           item.id === cartItem.id && item.size === cartItem.size
       );
 

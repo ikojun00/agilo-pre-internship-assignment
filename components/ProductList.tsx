@@ -1,15 +1,15 @@
 import React from "react";
 import ProductItem from "./ProductItem";
-import handleItem from "@/app/types/interfaces/HandleItem";
+import ProductInterface from "@/app/types/interfaces/ProductInterface";
 
-type handleDB = {
-  db: handleItem[];
-};
+interface ProductListProps {
+  products: ProductInterface[];
+}
 
-export default function ProductList({ db }: handleDB) {
+export default function ProductList({ products }: ProductListProps) {
   return (
     <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-20 mt-10">
-      {db.map((item) => (
+      {products.map((item: ProductInterface) => (
         <div className="flex gap-4 md:flex-col" key={item.id}>
           <ProductItem {...item} />
         </div>

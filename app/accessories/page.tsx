@@ -5,20 +5,21 @@ import { useEffect, useState } from "react";
 import ContentfulService from "../services/ContentfulService";
 import PathnameBar from "@/components/PathnameBar";
 import Spinner from "@/components/icons/Spinner";
+import ProductInterface from "../types/interfaces/ProductInterface";
 
 export default function Accessories() {
-  const [db, setDb] = useState();
+  const [products, setProducts] = useState<ProductInterface[]>();
 
   useEffect(() => {
     (async () => {
       const newProducts = await ContentfulService.getProductsByCategory(
         "accessories"
       );
-      setDb(newProducts);
+      setProducts(newProducts);
     })();
   }, []);
 
-  if (!db) {
+  if (!products) {
     return (
       <div className="h-[calc(100vh-7rem)] flex justify-center items-center">
         <Spinner />
@@ -29,7 +30,7 @@ export default function Accessories() {
   return (
     <div className="px-10 my-10">
       <PathnameBar />
-      <ProductList db={db} />
+      <ProductList products={products} />
     </div>
   );
 }

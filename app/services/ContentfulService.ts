@@ -1,3 +1,5 @@
+import AgiloCollection from "../types/interfaces/AgiloCollection";
+import AgiloInterface from "../types/interfaces/AgiloInterface";
 import qGetAllColorVariants from "../types/queries/GetAllColorVariants";
 import qGetAllProducts from "../types/queries/GetAllProducts";
 import qGetProductById from "../types/queries/GetProductById";
@@ -16,8 +18,8 @@ const graphqlRequest = async (query: string) => {
   });
 };
 
-const productsCollection = (data: any) => {
-  return data.agiloCollection.items.map((item: any) => ({
+const productsCollection = (data: AgiloCollection) => {
+  return data.agiloCollection.items.map((item: AgiloInterface) => ({
     id: item.id,
     name: item.name,
     price: item.price,
@@ -32,7 +34,7 @@ const getAllProducts = async () => {
   try {
     const response = await graphqlRequest(qGetAllProducts);
     const body = (await response.json()) as {
-      data: any;
+      data: AgiloCollection;
     };
 
     return productsCollection(body.data);
@@ -47,7 +49,7 @@ const getProductsByCategory = async (category: string) => {
   try {
     const response = await graphqlRequest(qGetProductsByCategory(category));
     const body = (await response.json()) as {
-      data: any;
+      data: AgiloCollection;
     };
     return productsCollection(body.data);
   } catch (error) {
@@ -61,7 +63,7 @@ const getProductById = async (id: number) => {
   try {
     const response = await graphqlRequest(qGetProductById(id));
     const body = (await response.json()) as {
-      data: any;
+      data: AgiloCollection;
     };
     return productsCollection(body.data)[0];
   } catch (error) {
@@ -75,9 +77,9 @@ const getAllColorVariants = async (name: string) => {
   try {
     const response = await graphqlRequest(qGetAllColorVariants(name));
     const body = (await response.json()) as {
-      data: any;
+      data: AgiloCollection;
     };
-    return body.data.agiloCollection.items.map((item: any) => ({
+    return body.data.agiloCollection.items.map((item: AgiloInterface) => ({
       id: item.id,
       color: item.color,
     }));

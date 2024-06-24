@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import handleItem from "@/app/types/interfaces/HandleItem";
 import Carousel from "./Carousel";
+import ProductInterface from "@/app/types/interfaces/ProductInterface";
 
-export default function ProductItem(item: handleItem) {
+export default function ProductItem(item: ProductInterface) {
   return (
     <>
       <Carousel {...item} />

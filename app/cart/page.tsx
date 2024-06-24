@@ -1,18 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import CartItem from "../types/interfaces/CartItem";
+import CartInterface from "../types/interfaces/CartInterface";
 import Minus from "@/components/icons/Minus";
 import Plus from "@/components/icons/Plus";
 import Link from "next/link";
 
 export default function Cart() {
-  const [data, setData] = useState<CartItem[]>([]);
+  const [data, setData] = useState<CartInterface[]>([]);
   const [total, setTotal] = useState<number>(0);
 
   const changeQuantity = (id: number, num: number, size: string) => {
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    let index = existingCart.findIndex((item: CartItem) => item.id === id);
+    let index = existingCart.findIndex((item: CartInterface) => item.id === id);
 
     if (index !== -1 && existingCart[index].quantity > 0) {
       existingCart[index].quantity += num;
@@ -25,7 +25,7 @@ export default function Cart() {
 
     const newData = [...data];
     index = newData.findIndex(
-      (item: CartItem) => item.id === id && item.size === size
+      (item: CartInterface) => item.id === id && item.size === size
     );
 
     if (index !== -1 && newData[index].quantity > 0) {

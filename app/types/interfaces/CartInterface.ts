@@ -1,4 +1,4 @@
-export default interface CartItem {
+export default interface CartInterface {
   id: number;
   name: string;
   price: number;

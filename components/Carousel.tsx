@@ -1,12 +1,12 @@
 "use client";
-import handleItem from "@/app/types/interfaces/HandleItem";
 import React, { useState } from "react";
 import Previous from "./icons/Previous";
 import Link from "next/link";
 import Image from "next/image";
 import Next from "@/components/icons/Next";
+import ProductInterface from "@/app/types/interfaces/ProductInterface";
 
-export default function Carousel(item: handleItem) {
+export default function Carousel(item: ProductInterface) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const onMouseEnter = () => setIsHovered(true);
