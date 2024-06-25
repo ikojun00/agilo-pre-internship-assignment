@@ -211,7 +211,7 @@ export default function Product() {
           </div>
           <div className="flex gap-4">
             <button
-              className="text-xs md:text-sm p-4 bg-black text-white"
+              className="text-xs md:text-sm p-4 bg-black text-white shadow-none transition-shadow duration-300 hover:shadow-lg hover:shadow-slate-300"
               onClick={handleAddToCart}
             >
               Add to Cart
