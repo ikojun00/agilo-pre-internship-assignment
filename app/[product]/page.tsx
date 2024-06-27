@@ -11,6 +11,7 @@ import Spinner from "@/components/icons/Spinner";
 import ColorInterface from "../types/interfaces/ColorInterface";
 import ProductItem from "../types/interfaces/ProductInterface";
 import CartInterface from "../types/interfaces/CartInterface";
+import { toast } from "react-toastify";
 
 const colorMap: { [key: string]: string } = {
   black: "bg-black",
@@ -49,7 +50,7 @@ export default function Product() {
   const handleAddToCart = () => {
     if (product) {
       if (selectedSize === "" && product.category !== "accessories") {
-        alert("You need to select size!");
+        toast.error("You need to select size!");
         return;
       }
       const cartItem = {
@@ -72,7 +73,7 @@ export default function Product() {
       } else {
         existingCart.push(cartItem);
       }
-
+      toast.success("Added to cart!");
       localStorage.setItem("cart", JSON.stringify(existingCart));
       window.dispatchEvent(new Event("cart"));
     }

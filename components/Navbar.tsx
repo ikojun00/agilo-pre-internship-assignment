@@ -71,7 +71,9 @@ export default function Navbar() {
         </Link>
 
         <Link href="/cart">
-          <div className="p-3.5 relative">
+          <div
+            className={`p-3.5 relative ${isOpen ? "pointer-events-none" : ""}`}
+          >
             <Cart />
             <div className="absolute top-0 left-0 rounded-2xl text-sm px-1 bg-slate-200">
               {cartLength}
