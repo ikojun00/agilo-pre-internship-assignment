@@ -9,14 +9,7 @@ const inter = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Style Utopia",
-  description: "",
-  icons: {
-    icon: [
-      { rel: "icon", url: "/favicon.ico" },
-      { rel: "icon", url: "/favicon-32x32.ico", sizes: "32x32" },
-      { rel: "icon", url: "/favicon-64x64.ico", sizes: "64x64" },
-    ],
-  },
+  description: "Agilo Pre Internship",
 };
 
 export default function RootLayout({
